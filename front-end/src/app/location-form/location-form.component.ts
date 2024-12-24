@@ -3,14 +3,15 @@ import {FormsModule} from "@angular/forms";
 import {DeliveryAddress} from "../model/DeliveryAddress";
 import {UserService} from "../service/user.service";
 import {HttpErrorResponse} from "@angular/common/http";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-location-form',
   standalone: true,
   imports: [
     FormsModule,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './location-form.component.html',
   styleUrl: './location-form.component.css'

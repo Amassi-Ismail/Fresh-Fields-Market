@@ -92,6 +92,7 @@ export class CartPopoverComponent {
 
     this.cartService.checkout(orderRequest).subscribe({
       next: (response) => {
+        alert('Order completed successfully.');
         console.log('Order created successfully:', response);
         this.cartItems = [];
         this.cartTotal = 0;

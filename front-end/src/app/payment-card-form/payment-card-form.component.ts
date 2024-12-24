@@ -35,6 +35,7 @@ export class PaymentCardFormComponent {
         this.submit.emit(paymentMethod); // emit the payment method
       },
       error: (err) => {
+        console.log('Payment method error:', err);
         console.error('Error adding payment method:', err);
         // Display a user-friendly error message
       },
