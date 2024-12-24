@@ -1,8 +1,14 @@
 <div>
   <h3 class="mx-2">Saved Addresses</h3>
-  <div class="container-fluid" *ngFor="let address of addresses">
-    <a (click)="selectLocation(address)">{{ address.street + ', ' + address.city + ', ' + address.state + ', ' + address.postalCode}}</a>
-  </div>
+  <div class="location-list">
+  <ul class="list-unstyled text-start location-list-inn" *ngIf="addresses.length > 0; else noAddresses">
+    <li *ngFor="let address of addresses">
+      <a class="text-decoration-none location-ins" (click)="selectLocation(address)">{{address.street + ', ' + address.city + ', ' + address.state + ', ' + address.postalCode}}</a></li>
+  </ul>
+    <ng-template #noAddresses>
+      <p class="mx-2" style="font-size: 1.2rem">No addresses saved</p>
+    </ng-template>
+</div>
 </div>
 
 <div class="delivery-location-form">
@@ -14,7 +20,7 @@
     <input class="form-input" id="postalCode" [(ngModel)]="postalCode" required placeholder="Postal Code"/>
   </div>
   <div class="btn-group">
-    <button class="btn-custom submit-btn" (click)="submitLocation()">Submit</button>
+    <button class="btn-custom submit-btn" (click)="submitLocation()">Continue</button>
     <button class="btn-custom cancel-btn" (click)="close.emit()">Back</button>
   </div>
 </div>
