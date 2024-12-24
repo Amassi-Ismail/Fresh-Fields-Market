@@ -1,0 +1,16 @@
+<div class="col sidebar-custom">
+  <div class="sidebar-content">
+    <ul class="list-unstyled text-start">
+      <li>
+        <a class="text-decoration-none aisle-link-custom shop-link">
+          <i class="fa-solid fa-cart-shopping"></i> Shop
+        </a>
+      </li>
+    </ul>
+    <hr class="sidebar-divider">
+    <h2 class="sidebar-heading">Browse aisles</h2>
+      <ul class="list-unstyled text-start aisle-list">
+        <li *ngFor="let aisle of aisles"><a class="text-decoration-none aisle-link-custom" [class.selected]="isSelected(aisle.id)" (click)="loadAisleProducts(aisle.id)">{{aisle.name}}</a></li>
+      </ul>
+      </div>
+     </div>

@@ -1,0 +1,45 @@
+.container-flex {
+  position: relative;
+  text-align: center; /* Centered text */
+}
+
+.intro-img {
+  width: 100%; /* Makes the image fill the width of the containing div */
+  height: auto; /* Maintains the aspect ratio */
+}
+
+h1 {
+  position: absolute; /* Allows positioning relative to the nearest positioned ancestor */
+  top: 120px; /* Adjust this value to control vertical spacing */
+  left: 20px; /* Adjust this value to control horizontal spacing */
+  z-index: 1; /* Ensures they appear above the image */
+  color: #001123; /* Change color based on background */
+  font-size: 80px;
+  letter-spacing: 5px;
+  font-family: "Bodoni MT Poster Compressed", sans-serif;
+}
+
+
+.shop-now {
+  background-color: #e4590f;
+  color: white; /* White text */
+  border: none; /* No border */
+  padding: 14px 160px; /* Padding for button size */
+  text-align: center; /* Center text */
+  text-decoration: none; /* No underline */
+  margin-right: 35px;
+  position: absolute; /* Allows positioning relative to the nearest positioned ancestor */
+  z-index: 1; /* Ensures they appear above the image */
+  display: inline-block; /* Inline-block for proper spacing */
+  font-size: 29px; /* Font size */
+  border-radius: 25px; /* Increased border radius */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+  left: 8cap;
+  top: 23cap;
+}
+
+
+.shop-now:hover {
+  background-color: coral; /* Darker green on hover */
+  transform: scale(1.05); /* Slightly enlarge button on hover */
+}

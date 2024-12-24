@@ -1,0 +1,92 @@
+body{
+  background: #e8b60d linear-gradient(to right, #e2e2e2, #fbbc95);
+  font-family: Calibri, sans-serif;
+  height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(65, 78, 122) 70.2%);
+  height: 100vh;
+  color: #ffffff;
+}
+
+body.dark-mode .navbar{
+  background-color: #1F1F1F !important;
+}
+
+body.dark-mode .navbar .navbar-brand{
+  color: #ffffff !important;
+}
+
+body.dark-mode .nav-item i{
+  color: #19264a;
+}
+
+body.dark-mode .dark-mode-toggle {
+  border-color: #2c3e50;
+}
+
+body.dark-mode .nav-link:hover {
+  background-color: #444444;
+  color: white;
+}
+
+body.dark-mode .sidebar-custom {
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar-heading {
+  color: #ffffff;
+}
+
+body.dark-mode .aisle-link-custom {
+  color: #ffffff;
+}
+
+body.dark-mode .aisle-link-custom:hover {
+  background-color: #001123;
+}
+
+body.dark-mode .aisle-link-custom.selected {
+  background-color: #001123;
+}
+
+body.dark-mode .search-bar {
+  background-color: #2b385a;
+  border-color: #000104;
+}
+
+body.dark-mode .search-button {
+  background-color: #2b385a;
+  border-color: #000104;
+  color: #ffffff;
+}
+
+body.dark-mode .search-bar:focus {
+  box-shadow: 0 0 5px rgb(79, 105, 241);
+}
+
+
+body.dark-mode ::placeholder {
+  color: #ffffff;
+}
+
+body.dark-mode footer .text-uppercase {
+  color: #0b72d8;
+}
+
+body.dark-mode .b0 {
+  background-color: #001123 !important;
+  border-color: #000104 !important;
+}
+
+body.dark-mode .popover-content {
+  background-color: #2b385a;
+  border-color: #000104 !important;
+  box-shadow: #001123 1px 1px 1px;
+}
+
+body.dark-mode .checkout-btn {
+  background-color: #001123;
+}

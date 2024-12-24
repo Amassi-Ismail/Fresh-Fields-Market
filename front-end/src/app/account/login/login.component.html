@@ -1,0 +1,56 @@
+<div class="container-custom">
+  <div class="container authentication-form" id="container">
+    <div class="form-container sign-up">
+      <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+        <h1 class="form-header">Create Account</h1>
+
+        <input type="text" placeholder="First Name" formControlName="firstname" required>
+        <div *ngIf="isFieldInvalid('firstname')" class="field-error-message text-danger">Field required</div>
+
+        <input type="text" placeholder="Last Name" formControlName="lastname" required>
+        <div *ngIf="isFieldInvalid('lastname')" class="field-error-message text-danger">Field required</div>
+
+        <input type="text" placeholder="Last Name" formControlName="email" required>
+        <div *ngIf="isFieldInvalid('email')" class="field-error-message text-danger">Field required</div>
+
+        <input type="password" placeholder="Password" formControlName="password" required>
+        <div *ngIf="passwordStrengthMessage" class="password-strength-message text-danger">
+          {{ passwordStrengthMessage }}
+        </div>
+
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+    <div class="form-container sign-in">
+      <form (ngSubmit)="onLogin()">
+        <h1 class="form-header">Sign In</h1>
+
+        <input type="email" placeholder="Email" [(ngModel)]="logEmail" name="email" required>
+        <div *ngIf="loginEmailError" class="field-error-message text-danger">Field required</div>
+
+        <input type="password" placeholder="Password" [(ngModel)]="logPassword" name="password" required>
+        <div *ngIf="loginPasswordError" class="field-error-message text-danger">Field required</div>
+
+        <div class="text-danger" *ngIf="invalidCreds">
+          <p>{{ errorMessage }}</p>
+        </div>
+
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+    <div class="toggle-container">
+      <div class="toggle">
+        <div class="toggle-panel toggle-left">
+          <h1>Welcome Back!</h1>
+          <p>Enter your personal details to use all of site features</p>
+          <button class="hidden" id="login" (click)="showLogin()">Sign In</button>
+        </div>
+        <div class="toggle-panel toggle-right">
+          <h1>Hello, Friend!</h1>
+          <p>Register with your personal details to use all of site features</p>
+          <button class="hidden" id="register" (click)="showRegistration()">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

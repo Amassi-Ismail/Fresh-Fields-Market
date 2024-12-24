@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow" [ngClass]="{'dark-mode': isDarkMode}">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img ngSrc="assets/icons/icon.png" alt="Website Icon" style="height: 30px; width:50px;" height="512" width="512"/>
+      Fresh Fields Market
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bstarget="# navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link position-relative" id="cartLink" (click)="onCartClick(); $event.preventDefault()">
+            <i class="fas fa-shopping-cart fa-lg"></i>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown"
+             aria-expanded="false">
+            <i class="fas fa-user-circle fa-lg"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+            <li><button type="button" class="dropdown-item" popovertarget="popup1">Account Details</button></li>
+            <li><button type="button" class="dropdown-item" popovertarget="popup2">Saved Addresses</button></li>
+            <li><button type="button" class="dropdown-item" popovertarget="popup3">Payment Method</button></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" (click)="logout()">Log Out</a></li>
+          </ul>
+        </li>
+        <div class="nav-item">
+          <button class="btn btn-light dark-mode-toggle" (click)="toggleDarkMode()">
+            <span *ngIf="!isDarkMode" id="lightIcon">☀️</span>
+            <span *ngIf="isDarkMode" id="darkIcon">🌙</span>
+          </button>
+        </div>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<app-account-details></app-account-details>
+<app-saved-adresses></app-saved-adresses>
+<app-payment-method></app-payment-method>

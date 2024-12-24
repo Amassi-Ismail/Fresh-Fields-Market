@@ -1,0 +1,28 @@
+<div class="popover-overlay" (click)="closePopover()" [@popoverState]="popoverState">
+  <div class="popover-content" (click)="$event.stopPropagation()">
+    <div *ngIf="currentStep === 'cart'">
+      <h2>Your Cart</h2>
+      <div class="cart-items-container">
+        <div *ngFor="let item of cartItems" class="cart-item">
+          <img [src]="item.imageUrl" alt="{{ item.name }}" class="item-image">
+          <div class="item-details">
+            <span class="item-name">{{ item.name }}</span>
+            <div class="quantity-controls">
+              <button (click)="decrementQuantity(item)">-</button>
+              <span>{{ item.quantity }}</span>
+              <button (click)="incrementQuantity(item)">+</button>
+            </div>
+            <span>Total: ${{ item.price * item.quantity | number:'1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="cart-total">Total: ${{ cartTotal | number:'1.2-2' }}</div>
+      <div class="cart-actions">
+        <button [disabled]="cartItems.length === 0" (click)="checkout()" class="checkout-btn">Checkout</button>
+        <button (click)="closePopover()" class="close-btn">Close</button>
+      </div>
+    </div>
+      <app-location-form *ngIf="currentStep === 'delivery'" (close)="closeDeliveryForm()" (locationSubmitted)="handleLocationSubmission($event)"></app-location-form>
+      <app-payment-card-form *ngIf="currentStep === 'payment'" (submit)="handlePaymentSubmission($event)" (close)="closePopover()"></app-payment-card-form>
+  </div>
+</div>
