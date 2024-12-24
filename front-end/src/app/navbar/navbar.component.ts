@@ -3,7 +3,7 @@ import {NgClass, NgIf, NgOptimizedImage} from "@angular/common";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AccountDetailsComponent} from "../popup/account-details/account-details.component";
-import {SavedAdressesComponent} from "../popup/saved-adresses/saved-adresses.component";
+import {SavedAddressesComponent} from "../popup/saved-adresses/saved-addresses.component";
 import {PaymentMethodComponent} from "../popup/payment-method/payment-method.component";
 
 @Component({
@@ -14,7 +14,7 @@ import {PaymentMethodComponent} from "../popup/payment-method/payment-method.com
     NgIf,
     NgClass,
     AccountDetailsComponent,
-    SavedAdressesComponent,
+    SavedAddressesComponent,
     PaymentMethodComponent
   ],
   templateUrl: './navbar.component.html',

@@ -8,10 +8,10 @@ import { UserService } from '../../service/user.service';
   selector: 'app-saved-adresses',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, CommonModule],
-  templateUrl: './saved-adresses.component.html',
-  styleUrl: './saved-adresses.component.css',
+  templateUrl: './saved-addresses.component.html',
+  styleUrl: './saved-addresses.component.css',
 })
-export class SavedAdressesComponent implements OnInit {
+export class SavedAddressesComponent implements OnInit {
   public addresses: DeliveryAddress[] = [];
 
   constructor(private userService: UserService) {}
