@@ -1,7 +1,93 @@
-<div class="container-flex text-center">
-  <img src="assets/images/fresh-vegetables-with-space-left.jpg" alt="Fresh Vegetables" class="intro-img">
-  <div class="container">
-    <h1 class="intro-banner">Healthy Beginnings<br>for Lifelong<br> Eating Habits</h1>
-    <button class="shop-now mt-3" (click)="loadProductsPage()">Start Shopping</button>
+<app-navbar></app-navbar>
+
+<div class="hero-section">
+  <div class="hero-background">
+    <div class="hero-overlay"></div>
+    <div class="floating-images">
+      <img src="assets/images/vegetable1.png" alt="Fresh Vegetable" class="float-image img1">
+      <img src="assets/images/fruit1.png" alt="Fresh Fruit" class="float-image img2">
+      <img src="assets/images/bread1.png" alt="Fresh Bread" class="float-image img3">
+      <img src="assets/images/dairy1.png" alt="Fresh Dairy" class="float-image img4">
+    </div>
+  </div>
+  <div class="hero-content">
+    <h1>Fresh Fields Market</h1>
+    <p class="subtitle">Farm Fresh Quality, Delivered to Your Door</p>
+    <div class="cta-buttons">
+      <button class="shop-now-btn" (click)="navigateToShop()">
+        <i class="fas fa-shopping-basket"></i>
+        Shop Now
+      </button>
+      <button *ngIf="!isLoggedIn()" class="login-btn" (click)="navigateToLogin()">
+        <i class="fas fa-user"></i>
+        Login / Sign Up
+      </button>
+    </div>
   </div>
 </div>
+
+<section class="features">
+  <div class="feature-card">
+    <i class="fas fa-leaf"></i>
+    <h3>Fresh Produce</h3>
+    <p>Hand-picked quality fruits and vegetables from local farms</p>
+  </div>
+  <div class="feature-card">
+    <i class="fas fa-truck"></i>
+    <h3>Fast Delivery</h3>
+    <p>Same-day delivery to your doorstep</p>
+  </div>
+  <div class="feature-card">
+    <i class="fas fa-heart"></i>
+    <h3>Quality Guarantee</h3>
+    <p>100% satisfaction guaranteed on all products</p>
+  </div>
+</section>
+
+<section class="categories">
+  <h2>Browse Categories</h2>
+  <div class="category-grid">
+    <div class="category-card" (click)="navigateToShop()">
+      <img src="assets/images/fruits.png" alt="Fruits">
+      <h3>Fresh Fruits</h3>
+    </div>
+    <div class="category-card" (click)="navigateToShop()">
+      <img src="assets/images/e4f72981-ae5c-4248-b859-.png" alt="Vegetables">
+      <h3>Vegetables</h3>
+    </div>
+    <div class="category-card" (click)="navigateToShop()">
+      <img src="assets/images/close-up-dairy-products.png" alt="Dairy">
+      <h3>Dairy & Eggs</h3>
+    </div>
+    <div class="category-card" (click)="navigateToShop()">
+      <img src="assets/images/set-various-bread-stone-surface.png" alt="Bakery">
+      <h3>Bakery</h3>
+    </div>
+  </div>
+</section>
+
+<section class="why-choose-us">
+  <h2>Why Choose Fresh Fields Market?</h2>
+  <div class="benefits-grid">
+    <div class="benefit">
+      <i class="fas fa-clock"></i>
+      <h3>24/7 Service</h3>
+      <p>Shop anytime, anywhere</p>
+    </div>
+    <div class="benefit">
+      <i class="fas fa-shield-alt"></i>
+      <h3>Secure Shopping</h3>
+      <p>Safe and secure transactions</p>
+    </div>
+    <div class="benefit">
+      <i class="fas fa-tag"></i>
+      <h3>Best Prices</h3>
+      <p>Competitive prices guaranteed</p>
+    </div>
+    <div class="benefit">
+      <i class="fas fa-undo"></i>
+      <h3>Easy Returns</h3>
+      <p>Hassle-free return policy</p>
+    </div>
+  </div>
+</section>

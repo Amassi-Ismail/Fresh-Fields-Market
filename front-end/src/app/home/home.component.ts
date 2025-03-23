@@ -1,18 +1,31 @@
 import { Component } from '@angular/core';
-import {Router} from "@angular/router";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { CommonModule } from '@angular/common';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, NavbarComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
   constructor(private router: Router) {}
 
-  loadProductsPage(): void {
-    this.router.navigate(['/shop-component']).then(r => r);
+  navigateToShop() {
+    if (this.isLoggedIn()) {
+      this.router.navigate(['/shop-component']);
+    } else {
+      this.router.navigate(['/account-component']);
+    }
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['/account-component']);
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('authToken');
   }
 }

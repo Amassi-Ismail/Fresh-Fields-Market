@@ -1,45 +1,304 @@
-.container-flex {
+.hero-section {
   position: relative;
-  text-align: center; /* Centered text */
+  height: 100vh;
+  background: linear-gradient(135deg, #1a472a 0%, #2c5282 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
 }
 
-.intro-img {
-  width: 100%; /* Makes the image fill the width of the containing div */
-  height: auto; /* Maintains the aspect ratio */
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-h1 {
-  position: absolute; /* Allows positioning relative to the nearest positioned ancestor */
-  top: 120px; /* Adjust this value to control vertical spacing */
-  left: 20px; /* Adjust this value to control horizontal spacing */
-  z-index: 1; /* Ensures they appear above the image */
-  color: #001123; /* Change color based on background */
-  font-size: 80px;
-  letter-spacing: 5px;
-  font-family: "Bodoni MT Poster Compressed", sans-serif;
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
 }
 
-
-.shop-now {
-  background-color: #e4590f;
-  color: white; /* White text */
-  border: none; /* No border */
-  padding: 14px 160px; /* Padding for button size */
-  text-align: center; /* Center text */
-  text-decoration: none; /* No underline */
-  margin-right: 35px;
-  position: absolute; /* Allows positioning relative to the nearest positioned ancestor */
-  z-index: 1; /* Ensures they appear above the image */
-  display: inline-block; /* Inline-block for proper spacing */
-  font-size: 29px; /* Font size */
-  border-radius: 25px; /* Increased border radius */
-  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
-  left: 8cap;
-  top: 23cap;
+.floating-images {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
+.float-image {
+  position: absolute;
+  max-width: 200px;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+  opacity: 0.85;
+  transition: all 0.3s ease;
+}
 
-.shop-now:hover {
-  background-color: coral; /* Darker green on hover */
-  transform: scale(1.05); /* Slightly enlarge button on hover */
+.float-image:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.img1 {
+  top: 15%;
+  left: 10%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.img2 {
+  top: 25%;
+  right: 15%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.img3 {
+  bottom: 20%;
+  left: 15%;
+  animation: float 7s ease-in-out infinite;
+}
+
+.img4 {
+  bottom: 25%;
+  right: 10%;
+  animation: float 9s ease-in-out infinite;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 2rem;
+  text-align: center;
+  color: white;
+  margin: 0 auto;
+  padding-top: 20vh;
+}
+
+.hero-content h1 {
+  font-size: 4.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, #ffffff, #f0f0f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  animation: fadeInDown 1.2s ease-out;
+}
+
+.subtitle {
+  font-size: 1.8rem;
+  margin-bottom: 2.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  animation: fadeInUp 1.2s ease-out;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  animation: fadeIn 1.5s ease-out;
+}
+
+.shop-now-btn, .login-btn {
+  padding: 1.2rem 2.5rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.shop-now-btn {
+  background: #e4590f;
+  color: white;
+  box-shadow: 0 4px 15px rgba(228, 89, 15, 0.3);
+}
+
+.login-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.shop-now-btn:hover, .login-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 4rem 2rem;
+  background: #f8f9fa;
+}
+
+.feature-card {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card i {
+  font-size: 2.5rem;
+  color: #e4590f;
+  margin-bottom: 1rem;
+}
+
+.categories {
+  padding: 4rem 2rem;
+}
+
+.categories h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.category-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  height: 200px;
+}
+
+.category-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover img {
+  transform: scale(1.1);
+}
+
+.category-card h3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+  margin: 0;
+}
+
+.why-choose-us {
+  padding: 4rem 2rem;
+  background: #f8f9fa;
+  text-align: center;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.benefit {
+  padding: 2rem;
+}
+
+.benefit i {
+  font-size: 2rem;
+  color: #e4590f;
+  margin-bottom: 1rem;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+
+  .subtitle {
+    font-size: 1.4rem;
+  }
+
+  .float-image {
+    max-width: 150px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+
+  .shop-now-btn, .login-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
