@@ -21,11 +21,29 @@ footer a:hover {
     text-decoration: underline;
 }
 
-
 footer p {
     margin-bottom: 0.5rem;
 }
 
 .text-uppercase {
   color: #d04b0c;
+}
+
+/* Add these responsive styles */
+@media (max-width: 768px) {
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  footer .fa {
+    font-size: 20px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  footer p {
+    font-size: 0.9rem;
+  }
 }
