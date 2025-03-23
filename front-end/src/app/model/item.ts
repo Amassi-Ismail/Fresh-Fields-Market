@@ -4,4 +4,5 @@ export class item{
     price !: number;
     imageUrl !: string;
     aisle !: string;
+    description !: string;
 }
