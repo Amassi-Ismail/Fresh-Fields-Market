@@ -1,10 +1,8 @@
-import {Component, EventEmitter, Output, Renderer2} from '@angular/core';
-import {NgClass, NgIf, NgOptimizedImage} from "@angular/common";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {AccountDetailsComponent} from "../popup/account-details/account-details.component";
-import {SavedAddressesComponent} from "../popup/saved-adresses/saved-addresses.component";
-import {PaymentMethodComponent} from "../popup/payment-method/payment-method.component";
+import { Component, EventEmitter, Output, Renderer2 } from '@angular/core';
+import { NgClass, NgIf, NgOptimizedImage } from "@angular/common";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Router, RouterLink, RouterLinkActive } from "@angular/router";
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,18 +11,35 @@ import {PaymentMethodComponent} from "../popup/payment-method/payment-method.com
     NgOptimizedImage,
     NgIf,
     NgClass,
-    AccountDetailsComponent,
-    SavedAddressesComponent,
-    PaymentMethodComponent
+    RouterLink,
+    RouterLinkActive
   ],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+onOrderHisClick() {
+this.router.navigate(['/order-history']);
+}
+onProfileClick() {
+this.router.navigate(['/profile']);
+}
   @Output() toggleCart = new EventEmitter<void>();
   isDarkMode: boolean = false;
+  cartItemCount: number = 0;
 
-  constructor(private renderer: Renderer2, private http: HttpClient, private router: Router) {
+  constructor(
+    private renderer: Renderer2,
+    private http: HttpClient,
+    private router: Router,
+    private cartService: CartService
+  ) {
+    // Load dark mode preference from localStorage
+    this.isDarkMode = localStorage.getItem('darkMode') === 'true';
+    this.applyTheme();
+    this.cartService.cartCount$.subscribe(
+      count => this.cartItemCount = count
+    );
   }
 
   local(){
@@ -41,34 +56,34 @@ export class NavbarComponent {
   }
 
   onCartClick() {
-    this.toggleCart.emit();
+    this.router.navigate(['/cart']);
   }
 
   toggleDarkMode(): void {
     this.isDarkMode = !this.isDarkMode;
+    localStorage.setItem('darkMode', this.isDarkMode.toString());
+    this.applyTheme();
+  }
 
+  private applyTheme(): void {
     const body = document.body;
-    const a=document.getElementsByClassName('aisle-link-custom');
-
     if (this.isDarkMode) {
       this.renderer.addClass(body, 'dark-mode');
-      this.renderer.addClass(a, 'dark-mode');
-      console.log('Dark mode enabled');
     } else {
       this.renderer.removeClass(body, 'dark-mode');
-      this.renderer.removeClass(a, 'dark-mode');
-      console.log('Dark mode disabled');
     }
   }
 
   logout() {
-    this.http.get('http://localhost:8080/auth/logout', this.local()).subscribe(response =>{
-        console.log(response);
-        this.router.navigate(['/account-component'])
-      },
-      error => {
-        console.error('Logout failed!', error);
-      }
-    );
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/']);
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('authToken');
+  }
+
+  navigateToLogin(): void {
+    this.router.navigate(['/account-component']);
   }
 }
