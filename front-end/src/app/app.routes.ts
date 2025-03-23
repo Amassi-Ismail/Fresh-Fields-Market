@@ -1,13 +1,21 @@
-import { Routes } from '@angular/router';
-import {HomeComponent} from "./home/home.component";
+import { RouterModule, Routes } from '@angular/router';
 import {ShopComponent} from "./shop/shop.component";
 import {LoginComponent} from "./account/login/login.component";
-import {LocationFormComponent} from "./location-form/location-form.component";
-import {PaymentCardFormComponent} from "./payment-card-form/payment-card-form.component";
+import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
+import { ProfileComponent } from './profile/profile.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
+import { HomeComponent } from './home/home.component';
 
-export const routes: Routes = [{path: 'account-component', component: LoginComponent},
-  {path: 'home-component', component: HomeComponent},
+export const routes: Routes = [
+  {path: '', component: HomeComponent},
+  {path: 'account-component', component: LoginComponent},
   {path: 'shop-component', component: ShopComponent},
-  {path: 'location-form', component: LocationFormComponent},
-  {path: 'payment-form', component: PaymentCardFormComponent},
-  {path: '',   redirectTo: '/account-component', pathMatch: 'full'}];
+  {path: 'cart', component: CartComponent},
+  {path: 'checkout', component: CheckoutComponent},
+  {path: 'order-confirmation', component: OrderConfirmationComponent},
+  { path: 'profile', component: ProfileComponent },
+  { path: 'order-history', component: OrderHistoryComponent},
+  ];
+
