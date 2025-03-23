@@ -1,8 +1,12 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
 body{
   background: #e8b60d linear-gradient(to right, #e2e2e2, #fbbc95);
   font-family: Calibri, sans-serif;
   height: 100vh;
   transition: background-color 0.3s, color 0.3s;
+  
 }
 
 body.dark-mode {
@@ -89,4 +93,57 @@ body.dark-mode .popover-content {
 
 body.dark-mode .checkout-btn {
   background-color: #001123;
+}
+
+/* Add these global responsive styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
 }
