@@ -1,0 +1,73 @@
+<div class="cart-page">
+  <div class="cart-container">
+    <div class="cart-header">
+      <h1>Your Shopping Cart</h1>
+      <span class="item-count">{{getItemCount()}} items</span>
+    </div>
+
+    <div class="cart-content" *ngIf="cartItems.length > 0; else emptyCart">
+      <div class="cart-items">
+        <div *ngFor="let cartItem of cartItems" class="cart-item">
+          <div class="item-image">
+            <img [src]="cartItem.item.imageUrl" [alt]="cartItem.item.name">
+          </div>
+          <div class="item-details">
+            <h3>{{cartItem.item.name}}</h3>
+            <span class="item-price">${{cartItem.item.price}}</span>
+          </div>
+          <div class="quantity-controls">
+            <button class="quantity-btn" (click)="updateQuantity(cartItem.id, -1)">
+              <i class="fas fa-minus"></i>
+            </button>
+            <span class="quantity">{{cartItem.quantity}}</span>
+            <button class="quantity-btn" (click)="updateQuantity(cartItem.id, 1)">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+          <div class="item-total">
+            ${{(cartItem.item.price * cartItem.quantity).toFixed(2)}}
+          </div>
+          <button class="remove-btn" (click)="removeItem(cartItem.id)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="cart-summary">
+        <h2>Order Summary</h2>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>${{getTotalPrice().toFixed(2)}}</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>FREE</span>
+        </div>
+        <div class="summary-total">
+          <span>Total</span>
+          <span>${{getTotalPrice().toFixed(2)}}</span>
+        </div>
+        <button class="checkout-btn" (click)="proceedToCheckout()">
+          Proceed to Checkout
+        </button>
+        <button class="continue-shopping" (click)="goBack()">
+          Continue Shopping
+        </button>
+        <button class="clear-cart" (click)="clearCart()">
+          Clear Cart
+        </button>
+      </div>
+    </div>
+
+    <ng-template #emptyCart>
+      <div class="empty-cart">
+        <i class="fas fa-shopping-cart"></i>
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added anything to your cart yet.</p>
+        <button class="continue-shopping" (click)="goBack()">
+          Start Shopping
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>
