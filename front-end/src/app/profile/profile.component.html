@@ -1,0 +1,70 @@
+<div class="profile-page">
+    <div class="profile-container">
+      <div class="profile-header">
+        <div class="profile-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <h1>My Profile</h1>
+        <p class="email-display">{{user.email}}</p>
+      </div>
+  
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input 
+              type="text" 
+              formControlName="firstName"
+              [readonly]="!isEditing"
+            >
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input 
+              type="text" 
+              formControlName="lastName"
+              [readonly]="!isEditing"
+            >
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>Phone</label>
+          <input 
+            type="tel" 
+            formControlName="phone"
+            [readonly]="!isEditing"
+          >
+        </div>
+  
+        <div class="form-group">
+          <label>Address</label>
+          <input 
+            type="text" 
+            formControlName="address"
+            [readonly]="!isEditing"
+          >
+        </div>
+  
+        <div class="button-group">
+          <button 
+            type="button" 
+            class="edit-btn"
+            (click)="toggleEdit()"
+          >
+            <i class="fas" [ngClass]="isEditing ? 'fa-times' : 'fa-edit'"></i>
+            {{isEditing ? 'Cancel' : 'Edit Profile'}}
+          </button>
+          <button 
+            type="submit" 
+            class="save-btn" 
+            *ngIf="isEditing"
+            [disabled]="!profileForm.valid"
+          >
+            <i class="fas fa-save"></i>
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
