@@ -1,0 +1,177 @@
+<div class="checkout-page">
+  <div class="checkout-container">
+    <div class="checkout-header">
+      <h1>Checkout</h1>
+      <div class="steps">
+        <div class="step" [class.active]="currentStep === 1">
+          <span class="step-number">1</span>
+          <span class="step-text">Delivery Details</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="step" [class.active]="currentStep === 2">
+          <span class="step-number">2</span>
+          <span class="step-text">Payment</span>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="checkout-form">
+      <!-- Delivery Details Section -->
+      <div class="form-section" *ngIf="currentStep === 1">
+        <h2>Delivery Details</h2>
+        
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input 
+            id="fullName" 
+            type="text" 
+            formControlName="fullName"
+            placeholder="Enter your full name"
+          >
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input 
+              id="email" 
+              type="email" 
+              formControlName="email"
+              placeholder="Enter your email"
+            >
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input 
+              id="phone" 
+              type="tel" 
+              formControlName="phone"
+              placeholder="Enter your phone number"
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input 
+            id="address" 
+            type="text" 
+            formControlName="address"
+            placeholder="Start typing your address"
+          >
+          <div class="address-suggestions" *ngIf="addressSuggestions.length">
+            <div 
+              *ngFor="let suggestion of addressSuggestions" 
+              class="suggestion-item"
+              (click)="selectAddress(suggestion)"
+            >
+              {{suggestion.place_name}}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">City</label>
+            <input 
+              id="city" 
+              type="text" 
+              formControlName="city"
+              placeholder="City"
+            >
+          </div>
+          <div class="form-group">
+            <label for="postcode">Postcode</label>
+            <input 
+              id="postcode" 
+              type="text" 
+              formControlName="postcode"
+              placeholder="Postcode"
+            >
+          </div>
+        </div>
+
+        <button type="button" class="next-btn" (click)="nextStep()" [disabled]="!isDeliveryDetailsValid()">
+          Continue to Payment
+        </button>
+      </div>
+
+      <!-- Payment Section -->
+      <div class="form-section" *ngIf="currentStep === 2">
+        <h2>Payment Details</h2>
+        
+        <div class="form-group">
+          <label for="cardNumber">Card Number</label>
+          <input 
+            id="cardNumber" 
+            type="text" 
+            formControlName="cardNumber"
+            placeholder="1234 5678 9012 3456"
+            class="form-control"
+            [class.is-invalid]="checkoutForm.get('cardNumber')?.invalid && 
+                               checkoutForm.get('cardNumber')?.touched"
+          >
+          <div class="invalid-feedback">
+            Please enter a valid 16-digit card number
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="expiryDate">Expiry Date</label>
+            <input 
+              id="expiryDate" 
+              type="text" 
+              formControlName="expiryDate"
+              placeholder="MM/YY"
+            >
+          </div>
+          <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input 
+              id="cvv" 
+              type="text" 
+              formControlName="cvv"
+              placeholder="123"
+            >
+          </div>
+        </div>
+
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>${{cartTotal.toFixed(2)}}</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span>FREE</span>
+          </div>
+          <div class="summary-total">
+            <span>Total</span>
+            <span>${{cartTotal.toFixed(2)}}</span>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="back-btn" (click)="prevStep()">
+            Back
+          </button>
+          <button 
+            type="submit" 
+            class="btn btn-primary w-100"
+            [disabled]="!checkoutForm.valid || isLoading"
+          >
+            <span *ngIf="!isLoading">Complete Purchase</span>
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+            <span *ngIf="isLoading">Processing...</span>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <div *ngIf="error" class="alert alert-danger mt-3">
+      {{ error }}
+    </div>
+  </div>
+</div>
