@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {NgIf} from "@angular/common";
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -16,18 +17,38 @@ import {NgIf} from "@angular/common";
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  // Login form fields
   logEmail: string = '';
   logPassword: string = '';
+  
+  // Error and validation states
   errorMessage: string = '';
   invalidCreds: boolean = false;
   loginEmailError: boolean = false;
   loginPasswordError: boolean = false;
+  signUpError: boolean = false;
+  
+  // Registration form
   signUpForm!: FormGroup;
   passwordStrengthMessage!: string;
   showPasswordStrengthMessage: boolean = false;
+  
+  // UI state
+  isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  // API endpoints
+  private readonly API_BASE_URL = 'http://localhost:8080/auth';
+  
+  constructor(
+    private fb: FormBuilder, 
+    private http: HttpClient, 
+    private router: Router, 
+    private cdr: ChangeDetectorRef
+  ) {
+    this.initSignUpForm();
+  }
 
+  private initSignUpForm(): void {
     this.signUpForm = this.fb.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
@@ -36,30 +57,38 @@ export class LoginComponent {
     });
   }
 
-  onSignUp() {
-    if (this.signUpForm.invalid || !this.validatePassword(this.signUpForm.get('password')?.value)) {
-      this.passwordStrengthMessage = 'Password must be at least 8 characters long and include uppercase, lowercase, numbers, and special characters.';
-      this.showPasswordStrengthMessage = true;
-      this.signUpForm.markAllAsTouched();  // Mark all fields as touched for validation feedback
+  async onSignUp(): Promise<void> {
+    if (this.isSignUpFormInvalid()) {
       return;
     }
 
-    const signUpData = this.signUpForm.value;
-    console.log('Submitting', signUpData);
+    try {
+      this.setLoadingState(true);
+      this.resetErrors();
 
+      const signUpData = this.signUpForm.value;
+      console.log('Submitting', signUpData);
 
-    this.http.post('http://localhost:8080/auth/register', signUpData).subscribe(response => {
-        console.log(response);
+      const response = await firstValueFrom(this.http.post(`${this.API_BASE_URL}/register`, signUpData));
+      
+      if (response) {
         this.showPasswordStrengthMessage = false;
-      },
-      error => {
-        console.error('SignUp failed!', error);
-        this.errorMessage = 'Email already exists.';
+        // Auto-login after successful registration
+        this.logEmail = signUpData.email;
+        this.logPassword = signUpData.password;
+        await this.onLogin();
       }
-    );
+    } catch (error: any) {
+      console.error('SignUp failed!', error);
+      this.signUpError = true;
+      this.errorMessage = error.error?.message || 'Email already exists.';
+      this.setLoadingState(false);
+    } finally {
+      this.setLoadingState(false);
+    }
   }
 
-  onLogin() {
+  async onLogin(): Promise<void> {
     this.loginEmailError = !this.logEmail;
     this.loginPasswordError = !this.logPassword;
 
@@ -70,39 +99,40 @@ export class LoginComponent {
 
     const loginData = {
       email: this.logEmail,
-      password:this.logPassword
+      password: this.logPassword
     };
 
-    this.http.post<{ token: string }>('http://localhost:8080/auth/login', loginData).subscribe(response => {
-      localStorage.setItem('authToken', response.token);
-      this.router.navigate(['/home-component']);
-    },
-    error => {
+    try {
+      this.setLoadingState(true);
+
+      const response = await firstValueFrom(this.http.post<{ token: string }>(`${this.API_BASE_URL}/login`, loginData));
+      if (response?.token) {
+        localStorage.setItem('authToken', response.token);
+        await this.router.navigate(['/']);
+      } else {
+        throw new Error('No token received');
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
       this.errorMessage = 'Invalid email or password. Please try again.';
       this.invalidCreds = true;
       this.loginEmailError = false;
       this.loginPasswordError = false;
-    }
-  );
-  }
-
-  // Method to show registration form
-  showRegistration() {
-    const container = document.getElementById('container') as HTMLElement;
-    if (container) {
-      container.classList.add("active");
+      this.setLoadingState(false);
+    } finally {
+      this.setLoadingState(false);
     }
   }
 
-  // Method to show login form
-
-  showLogin() {
-    const container = document.getElementById('container') as HTMLElement;
-    if (container) {
-      container.classList.remove("active");
-    }
+  showRegistration(): void {
+    const container = document.getElementById('container');
+    container?.classList.add("active");
   }
 
+  showLogin(): void {
+    const container = document.getElementById('container');
+    container?.classList.remove("active");
+  }
 
   validatePassword(password: string): boolean {
     const minLength = 8;
@@ -110,12 +140,39 @@ export class LoginComponent {
     const hasLowercase = /[a-z]/.test(password);
     const hasNumber = /\d/.test(password);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-    return password.length >= minLength && hasUppercase && hasLowercase && hasNumber && hasSpecialChar;
+    
+    return password.length >= minLength && 
+           hasUppercase && 
+           hasLowercase && 
+           hasNumber && 
+           hasSpecialChar;
   }
 
-  isFieldInvalid(field: string): false | true | undefined {
+  isFieldInvalid(field: string): boolean {
     const control = this.signUpForm.get(field);
-    return control?.invalid && (control.dirty || control.touched);
+    return !!control?.invalid && (!!control.dirty || !!control.touched);
   }
 
+  private isSignUpFormInvalid(): boolean {
+    const password = this.signUpForm.get('password')?.value;
+    
+    if (this.signUpForm.invalid || !this.validatePassword(password)) {
+      this.passwordStrengthMessage = 'Password must be at least 8 characters long and include uppercase, lowercase, numbers, and special characters.';
+      this.showPasswordStrengthMessage = true;
+      this.signUpForm.markAllAsTouched();
+      return true;
+    }
+    
+    return false;
+  }
+
+  private setLoadingState(isLoading: boolean): void {
+    this.isLoading = isLoading;
+    this.cdr.detectChanges();
+  }
+
+  private resetErrors(): void {
+    this.signUpError = false;
+    this.errorMessage = '';
+  }
 }
