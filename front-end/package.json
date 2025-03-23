@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@analogjs/vitest-angular": "^1.14.0",
     "@angular/animations": "^17.3.12",
     "@angular/common": "^17.3.12",
     "@angular/compiler": "^17.3.0",
@@ -23,6 +24,7 @@
     "@angular/router": "^17.3.0",
     "@angular/ssr": "^17.3.10",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0-rc.2",
+    "@popperjs/core": "^2.11.8",
     "@types/bootstrap": "^5.2.10",
     "@types/jquery": "^3.5.32",
     "bootstrap": "^5.3.3",
@@ -32,9 +34,11 @@
     "jquery": "^3.7.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
+    "zone.js": "~0.14.3",
+    "vitest": "^3.0.8"
   },
   "devDependencies": {
+    "@analogjs/vitest-angular": "^1.14.0",
     "@angular-devkit/build-angular": "^17.3.10",
     "@angular-eslint/builder": "17.5.3",
     "@angular-eslint/eslint-plugin": "17.5.3",
@@ -56,6 +60,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.4.2"
+    "typescript": "~5.4.2",
+    "vitest": "^3.0.8"
   }
 }
